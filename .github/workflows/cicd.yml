@@ -42,7 +42,8 @@ jobs:
         method: kubeconfig
         kubeconfig: ${{ secrets.KUBECONFIG }}
 
-    - name: (Stage 5) Inline Inject Build Number Tag & Apply Live Manifests
-      run: |
-        sed -i "s|DOCKERHUB_USERNAME/shopping-bill:TAG_PLACEHOLDER|${{ secrets.DOCKERHUB_USERNAME }}/shopping-bill:${{ github.run_number }}|g" deployment.yaml
-        kubectl apply -f deployment.yaml
+        - name: (Stage 5) Inline Inject Build Number Tag & Apply Live Manifests
+        run: |
+          sed -i "s|DOCKERHUB_IMAGE_PLACEHOLDER|${{ secrets.DOCKERHUB_USERNAME }}/shopping-bill:${{ github.run_number }}|g" deployment.yaml
+          kubectl apply -f deployment.yaml
+  
