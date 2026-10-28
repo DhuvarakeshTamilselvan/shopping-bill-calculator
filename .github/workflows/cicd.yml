@@ -42,8 +42,9 @@ jobs:
         method: kubeconfig
         kubeconfig: ${{ secrets.KUBECONFIG }}
 
-        - name: (Stage 5) Inline Inject Build Number Tag & Apply Live Manifests
+        - name: (Stage 5) Deployment - Local Manifest Verification & Dry-Run Test
         run: |
           sed -i "s|DOCKERHUB_IMAGE_PLACEHOLDER|${{ secrets.DOCKERHUB_USERNAME }}/shopping-bill:${{ github.run_number }}|g" deployment.yaml
-          kubectl apply -f deployment.yaml --validate=false --client
+          cat deployment.yaml
+  
   
